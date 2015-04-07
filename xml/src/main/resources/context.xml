@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--Plain stateless bean-->
+    <bean id="apple" class="ps.tutorial.spring.core.beans.Apple" scope="prototype"/>
+    <bean id="pear" class="ps.tutorial.spring.core.beans.Pear" scope="prototype"/>
+    <!--Singleton bean-->
+    <bean id="tree" class="ps.tutorial.spring.core.beans.Tree">
+        <constructor-arg name="apple" ref="apple"/>
+        <constructor-arg name="pear" ref="pear"/>
+    </bean>
+    <!--Aware bean-->
+    <bean id="awareBeen" class="ps.tutorial.spring.core.beans.AwareBean"/>
+    <!--Lifecycle bean-->
+    <bean id="lifeCycleBean" class="ps.tutorial.spring.core.beans.LifeCycleBean" init-method="init" destroy-method="destroy">
+        <property name="tree" ref="tree"/>
+    </bean>
+    <!--Abstract bean template-->
+        <bean id="treeTemplate" class="ps.tutorial.spring.core.beans.Tree" abstract="true">
+        <constructor-arg name="apple" ref="apple"/>
+        <constructor-arg name="pear" ref="pear"/>
+    </bean>
+    <!--Bean inheritance-->
+    <bean id="treeImplementation1" class="ps.tutorial.spring.core.beans.Tree" parent="treeTemplate"/>
+    <!--Bean post-processor-->
+    <bean class="ps.tutorial.spring.core.TracingBeanPostProcessor"/>
+    <bean class="ps.tutorial.spring.core.TracingBeanFactoryPostProcessor"/>
+
+</beans>
