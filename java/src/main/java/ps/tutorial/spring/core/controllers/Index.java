@@ -3,6 +3,7 @@ package ps.tutorial.spring.core.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ps.tutorial.spring.core.beans.ConfigResource;
 import ps.tutorial.spring.core.beans.Tree;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,9 +16,17 @@ public class Index {
     @Autowired
     Tree tree;
 
+    @Autowired
+    ConfigResource logConfig;
+
+    @Autowired
+    ConfigResource webConfig;
+
     @RequestMapping("/")
     public void index(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.getOutputStream().println("Hello " + tree);
+        resp.getOutputStream().println("Log config " + logConfig);
+        resp.getOutputStream().println("Web config " + webConfig);
     }
 
 }
